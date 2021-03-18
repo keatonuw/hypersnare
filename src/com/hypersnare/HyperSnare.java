@@ -15,10 +15,23 @@ public class HyperSnare {
         // hear
         // write
         Snare snare = new Snare();
+        Flanger flang = new Flanger();
 
         snare.ping();
         for (int i = 0; i < StdAudio.SAMPLE_RATE; i++) {
-            StdAudio.play(snare.tick());
+            StdAudio.play(flang.tick(snare.tick()));
         }
+
+        for (int j = 0; j < 5; j++) {
+            flang.randomize();
+            snare.randomize();
+            snare.ping();
+            for (int i = 0; i < StdAudio.SAMPLE_RATE; i++) {
+                StdAudio.play(flang.tick(snare.tick()));
+            }
+        }
+
+        StdAudio.close();
+        System.exit(0);
     }
 }

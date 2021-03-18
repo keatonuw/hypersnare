@@ -1,5 +1,5 @@
 package com.hypersnare.dsp;
 
-public interface Processor {
+public interface Processor extends Randomizeable {
     double tick(double in);
 }

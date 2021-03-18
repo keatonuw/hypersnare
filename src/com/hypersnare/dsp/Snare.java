@@ -2,13 +2,29 @@ package com.hypersnare.dsp;
 
 public class Snare implements PingSource {
     private Source noise;
+    private Source tone;
     private Processor filter;
     private PingSource envelope;
 
+    private double noiseVolume;
+    private double toneVolume;
+
     public Snare() {
         noise = new Noise();
+        tone = new Tone();
         filter = new Filter();
         envelope = new PingEnv();
+        noiseVolume = 0.5;
+        toneVolume = 0.5;
+    }
+
+    public void randomize() {
+        noiseVolume = Math.random() * 0.75 + 0.25;
+        toneVolume = Math.random() * 0.75 + 0.25;
+        noise.randomize();
+        tone.randomize();
+        filter.randomize();
+        envelope.randomize();
     }
 
     public void ping() {
@@ -16,6 +32,7 @@ public class Snare implements PingSource {
     }
 
     public double tick() {
-        return filter.tick(noise.tick()) * envelope.tick();
+        double sound = noiseVolume * noise.tick() + toneVolume * tone.tick();
+        return filter.tick(sound) * envelope.tick();
     }
 }

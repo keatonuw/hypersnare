@@ -5,4 +5,8 @@ public class Filter implements Processor {
     public double tick(double in) {
         return in;
     }
+
+    public void randomize() {
+
+    }
 }
