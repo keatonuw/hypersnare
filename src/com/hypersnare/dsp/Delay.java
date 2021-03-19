@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Delay implements Processor {
+    public static final int MAX_DELAY_TIME = StdAudio.SAMPLE_RATE / 4;
+
     private Queue<Double> buffer;
     private double feedback;
 
@@ -47,7 +49,7 @@ public class Delay implements Processor {
      */
     public void randomize() {
         feedback = Math.random() * 0.5;
-        int newSize = 1 + (int) (Math.random() * (StdAudio.SAMPLE_RATE / 2));
+        int newSize = 1 + (int) (Math.random() * ((double) MAX_DELAY_TIME));
         while (buffer.size() != newSize) {
             if (buffer.size() > newSize) {
                 buffer.remove();

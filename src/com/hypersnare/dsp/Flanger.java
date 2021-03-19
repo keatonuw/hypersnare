@@ -37,7 +37,7 @@ public class Flanger implements Processor {
      */
     public double tick(double in) {
         double sample = buffer.remove();
-        buffer.add(in * (1.0 - feedback) + sample * feedback);
+        buffer.add((sample + in) / 2.0 * feedback);
         return sample;
     }
 
@@ -53,7 +53,7 @@ public class Flanger implements Processor {
      * Randomizes the settings of the flanger
      */
     public void randomize() {
-        feedback = Math.random() * 0.9;
+        feedback = Math.random();
         int newSize = 1 + (int) (Math.random() * Math.round(StdAudio.SAMPLE_RATE / 440));
         while (buffer.size() != newSize) {
             if (buffer.size() > newSize) {
