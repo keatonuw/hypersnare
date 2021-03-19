@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class HyperChain implements Processor {
     private static final int MAX_EFFECTS = 10;
-    
+
     private Queue<Processor> effects;
 
     /**
@@ -52,7 +52,15 @@ public class HyperChain implements Processor {
         }
         int size = (int) (Math.random() * MAX_EFFECTS);
         for (int i = 0; i < size; i++) {
-            Processor effect = new Flanger();
+            int effectType = (int) (Math.random() * 2.0);
+            Processor effect;
+            if (effectType == 1) {
+                System.out.print("F");
+                effect = new Flanger();
+            } else {
+                System.out.print("S");
+                effect = new Saturator();
+            }
             effect.randomize();
             effects.add(effect);
         }
