@@ -3,6 +3,7 @@ package com.hypersnare;
 import com.hypersnare.dsp.Flanger;
 import com.hypersnare.dsp.Snare;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HyperSnare {
@@ -16,13 +17,14 @@ public class HyperSnare {
 
         Snare snare = new Snare();
         Flanger flang = new Flanger();
-        double[] buffer = new double[0];
+        double[] buffer = new double[StdAudio.SAMPLE_RATE];
 
         System.out.println("Hello! Welcome to HyperSnare");
         int selection = promptAction(input);
         while (selection != 3) {
             if (selection == 0) {
-                buffer = fillBuffer(snare, flang);
+                System.out.println("Randomizing...");
+                fillBuffer(buffer, snare, flang);
             } else if (selection == 1) {
                 StdAudio.play(buffer);
             }
@@ -52,13 +54,12 @@ public class HyperSnare {
         System.out.println("3 - Quit");
     }
 
-    public static double[] fillBuffer(Snare snare, Flanger flanger) {
+    public static void fillBuffer(double[] buffer, Snare snare, Flanger flanger) {
         snare.randomize();
         flanger.randomize();
-        double[] buffer = new double[StdAudio.SAMPLE_RATE];
+        snare.ping();
         for (int i = 0; i < buffer.length; i++) {
             buffer[i] = flanger.tick(snare.tick());
         }
-        return buffer;
     }
 }

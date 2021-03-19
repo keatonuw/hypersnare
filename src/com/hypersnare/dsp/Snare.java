@@ -20,7 +20,7 @@ public class Snare implements PingSource {
 
     public void randomize() {
         noiseVolume = Math.random() * 0.75 + 0.25;
-        toneVolume = Math.random() * 0.75 + 0.25;
+        toneVolume = 1.0 - noiseVolume;
         noise.randomize();
         tone.randomize();
         filter.randomize();
@@ -33,6 +33,7 @@ public class Snare implements PingSource {
 
     public double tick() {
         double sound = noiseVolume * noise.tick() + toneVolume * tone.tick();
-        return filter.tick(sound) * envelope.tick();
+        sound = filter.tick(sound) * envelope.tick();
+        return sound;
     }
 }

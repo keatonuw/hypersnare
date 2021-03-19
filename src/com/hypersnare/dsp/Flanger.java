@@ -12,7 +12,7 @@ public class Flanger implements Processor {
     public Flanger() {
         buffer = new LinkedList<>();
         feedback = 0.5;
-        int bufferSize = (int)(Math.round(StdAudio.SAMPLE_RATE / 440));
+        int bufferSize = (int) (Math.round(StdAudio.SAMPLE_RATE / 440));
         for (int i = 0; i < bufferSize; i++) {
             buffer.add(0.0);
         }
@@ -26,7 +26,7 @@ public class Flanger implements Processor {
 
     public void randomize() {
         feedback = Math.random() * 0.9;
-        int newSize = (int) (Math.random() * Math.round(StdAudio.SAMPLE_RATE / 440));
+        int newSize = 1 + (int) (Math.random() * Math.round(StdAudio.SAMPLE_RATE / 440));
         while (buffer.size() != newSize) {
             if (buffer.size() > newSize) {
                 buffer.remove();
