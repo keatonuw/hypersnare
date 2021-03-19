@@ -17,13 +17,12 @@ public class BitCrusher implements Processor {
      * @param in a double to process
      * @return a double of what has been processed
      */
-    public double tick(double in) {
+    public void process(double in) {
         count++;
         if (count >= sampleDivision) {
             count = 0;
             sample = in;
         }
-        return sample;
     }
 
     /**

@@ -35,10 +35,9 @@ public class Flanger implements Processor {
      * @param in a double to process
      * @return a double of the newly process sound
      */
-    public double tick(double in) {
+    public void process(double in) {
         double sample = buffer.remove();
         buffer.add((sample + in) / 2.0 * feedback);
-        return sample;
     }
 
     /**

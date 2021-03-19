@@ -56,7 +56,8 @@ public class Snare implements PingSource {
      */
     public double tick() {
         double sound = noiseVolume * noise.tick() + toneVolume * tone.tick();
-        sound = filter.tick(sound) * envelope.tick();
+        filter.process(sound);
+        sound = filter.tick() * envelope.tick();
         return sound;
     }
 }

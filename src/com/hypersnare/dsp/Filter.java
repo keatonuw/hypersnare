@@ -8,14 +8,19 @@ package com.hypersnare.dsp;
  */
 
 public class Filter implements Processor {
+    private double sample;
+
+    public Filter() {
+        sample = 0;
+    }
 
     /**
      * Process a sample through the filter
      * @param in a double sample to process
      * @return a double of the now-processed sample
      */
-    public double tick(double in) {
-        return in;
+    public void process(double in) {
+        sample = in;
     }
 
     /**
@@ -24,7 +29,7 @@ public class Filter implements Processor {
      * buffer.
      */
     public double tick() {
-        return 0;
+        return sample;
     }
 
     /**

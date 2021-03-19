@@ -12,5 +12,5 @@ public interface Processor extends Source {
      * @param in a double to process
      * @return a double of what has been processed
      */
-    double tick(double in);
+    void process(double in);
 }

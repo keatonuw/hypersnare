@@ -7,6 +7,7 @@ public class HyperChain implements Processor {
     private static final int MAX_EFFECTS = 20;
 
     private Queue<Processor> effects;
+    private double sample;
 
     /**
      * Creates a default HyperChain
@@ -16,6 +17,7 @@ public class HyperChain implements Processor {
         for (int i = 0; i < 5; i++) {
             effects.add(new Flanger());
         }
+        sample = 0;
     }
     /**
      * Processes the incoming signal, and
@@ -24,14 +26,15 @@ public class HyperChain implements Processor {
      * @param in a double to process
      * @return a double of what has been processed
      */
-    public double tick(double in) {
+    public void process(double in) {
         int size = effects.size();
         for (int i = 0; i < size; i++) {
             Processor effect = effects.remove();
-            in = in * 0.5 + effect.tick(in) * 0.5;
+            effect.process(in);
+            in = in * 0.5 + effect.tick() * 0.5;
             effects.add(effect);
         }
-        return in;
+        sample = in;
     }
 
     /**
@@ -40,7 +43,7 @@ public class HyperChain implements Processor {
      * @return a double of the sample
      */
     public double tick() {
-        return effects.peek().tick();
+        return sample;
     }
 
     /**

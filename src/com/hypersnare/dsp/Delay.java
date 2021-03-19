@@ -30,10 +30,9 @@ public class Delay implements Processor {
      * @param in a double to process
      * @return a double of the newly process sound
      */
-    public double tick(double in) {
+    public void process(double in) {
         double sample = buffer.remove();
         buffer.add(in * (1.0 - feedback) + sample * feedback);
-        return sample;
     }
 
     /**

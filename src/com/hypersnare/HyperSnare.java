@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class HyperSnare {
-    public static final int MAX_SAMPLES = StdAudio.SAMPLE_RATE / 4;
+    public static final int MAX_SAMPLES = StdAudio.SAMPLE_RATE;
     public static final int NOISE_GATE_THRESH = 100;
 
     private PingSource snare;
@@ -37,7 +37,8 @@ public class HyperSnare {
 
         int noiseGateCount = 0;
         while (buffer.size() < MAX_SAMPLES && noiseGateCount < NOISE_GATE_THRESH) {
-            double sample = effects.tick(snare.tick());
+            effects.process(snare.tick());
+            double sample = effects.tick();
             buffer.add(sample);
             if (sample == 0) {
                 noiseGateCount++;
