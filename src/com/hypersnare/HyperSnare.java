@@ -1,6 +1,8 @@
 package com.hypersnare;
 
 import com.hypersnare.dsp.Flanger;
+import com.hypersnare.dsp.HyperChain;
+import com.hypersnare.dsp.Processor;
 import com.hypersnare.dsp.Snare;
 
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class HyperSnare {
         Scanner input = new Scanner(System.in);
 
         Snare snare = new Snare();
-        Flanger flang = new Flanger();
+        Processor effects = new HyperChain();
         double[] buffer = new double[StdAudio.SAMPLE_RATE];
 
         System.out.println("Hello! Welcome to HyperSnare");
@@ -30,7 +32,7 @@ public class HyperSnare {
                 case RANDOMIZE:
                     System.out.println("Randomizing...");
                     System.out.println();
-                    fillBuffer(buffer, snare, flang);
+                    fillBuffer(buffer, snare, effects);
                     break;
                 case LISTEN:
                     System.out.println("Playing...");
@@ -85,12 +87,12 @@ public class HyperSnare {
      * @param snare A Snare object to get sound from
      * @param flanger A Flanger object to process through
      */
-    public static void fillBuffer(double[] buffer, Snare snare, Flanger flanger) {
+    public static void fillBuffer(double[] buffer, Snare snare, Processor effects) {
         snare.randomize();
-        flanger.randomize();
+        effects.randomize();
         snare.ping();
         for (int i = 0; i < buffer.length; i++) {
-            buffer[i] = flanger.tick(snare.tick());
+            buffer[i] = effects.tick(snare.tick());
         }
     }
 
