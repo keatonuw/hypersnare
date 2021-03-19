@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class HyperChain implements Processor {
+    private static final int MAX_EFFECTS = 10;
+    
     private Queue<Processor> effects;
 
     /**
@@ -45,9 +47,12 @@ public class HyperChain implements Processor {
      * Randomizes the chain
      */
     public void randomize() {
-        int size = effects.size();
+        while (!effects.isEmpty()) {
+            effects.remove();
+        }
+        int size = (int) (Math.random() * MAX_EFFECTS);
         for (int i = 0; i < size; i++) {
-            Processor effect = effects.remove();
+            Processor effect = new Flanger();
             effect.randomize();
             effects.add(effect);
         }
