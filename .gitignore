@@ -28,3 +28,6 @@ hs_err_pid*
 # vim artifacts
 *.un~
 *~
+
+# program output
+snares

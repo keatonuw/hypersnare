@@ -8,6 +8,10 @@ public class Filter implements Processor {
         return in;
     }
 
+    public double tick() {
+        return 0;
+    }
+
     public void randomize() {
 
     }

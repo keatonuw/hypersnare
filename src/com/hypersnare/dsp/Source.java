@@ -1,5 +1,6 @@
 package com.hypersnare.dsp;
 
-public interface Source extends Randomizeable {
+public interface Source {
     double tick();
+    void randomize();
 }

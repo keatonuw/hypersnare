@@ -24,6 +24,10 @@ public class Flanger implements Processor {
         return sample;
     }
 
+    public double tick() {
+        return buffer.peek();
+    }
+
     public void randomize() {
         feedback = Math.random() * 0.9;
         int newSize = 1 + (int) (Math.random() * Math.round(StdAudio.SAMPLE_RATE / 440));

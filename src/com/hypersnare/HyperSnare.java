@@ -3,16 +3,11 @@ package com.hypersnare;
 import com.hypersnare.dsp.Flanger;
 import com.hypersnare.dsp.Snare;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HyperSnare {
 
     public static void main(String[] args) {
-        // prompt user to randomize, hear, or write a snare
-        // randomize
-        // hear
-        // write
         Scanner input = new Scanner(System.in);
 
         Snare snare = new Snare();
@@ -20,15 +15,28 @@ public class HyperSnare {
         double[] buffer = new double[StdAudio.SAMPLE_RATE];
 
         System.out.println("Hello! Welcome to HyperSnare");
-        int selection = promptAction(input);
-        while (selection != 3) {
-            if (selection == 0) {
-                System.out.println("Randomizing...");
-                fillBuffer(buffer, snare, flang);
-            } else if (selection == 1) {
-                StdAudio.play(buffer);
+        HyperSnareState state = promptAction(input);
+        while (state != HyperSnareState.QUIT) {
+            switch (state) {
+                case RANDOMIZE:
+                    System.out.println("Randomizing...");
+                    System.out.println();
+                    fillBuffer(buffer, snare, flang);
+                    break;
+                case LISTEN:
+                    System.out.println("Playing...");
+                    System.out.println();
+                    StdAudio.play(buffer);
+                    break;
+                case SAVE:
+                    System.out.println("Saving...");
+                    System.out.println();
+                    // TODO: Prompt user for filename, then save.
+                    break;
+                case QUIT:
+                    break;
             }
-            selection = promptAction(input);
+            state = promptAction(input);
         }
 
 
@@ -36,14 +44,14 @@ public class HyperSnare {
         System.exit(0);
     }
 
-    public static int promptAction(Scanner input) {
+    public static HyperSnareState promptAction(Scanner input) {
         promptAction();
         String choice = input.next();
         while (!(choice.equals("0") || choice.equals("1") || choice.equals("2") || choice.equals("3"))) {
             promptAction();
             choice = input.next();
         }
-        return Integer.parseInt(choice);
+        return HyperSnareState.values()[(Integer.parseInt(choice))];
     }
 
     public static void promptAction() {
@@ -62,4 +70,13 @@ public class HyperSnare {
             buffer[i] = flanger.tick(snare.tick());
         }
     }
+
+    public enum HyperSnareState {
+        RANDOMIZE,
+        LISTEN,
+        SAVE,
+        QUIT
+    }
+
+
 }
