@@ -52,9 +52,11 @@ public class HyperChain implements Processor {
         }
         int size = (int) (Math.random() * MAX_EFFECTS);
         for (int i = 0; i < size; i++) {
-            int effectType = (int) (Math.random() * 3.0);
+            int effectType = (int) (Math.random() * 4.0);
             Processor effect;
-            if (effectType == 2) {
+            if (effectType == 3) {
+                effect = new BitCrusher();
+            } else if (effectType == 2) {
                 effect = new Delay();
             } else if (effectType == 1) {
                 effect = new Flanger();

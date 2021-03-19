@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class HyperSnare {
-    public static final int MAX_SAMPLES = StdAudio.SAMPLE_RATE * 2;
+    public static final int MAX_SAMPLES = StdAudio.SAMPLE_RATE / 4;
     public static final int NOISE_GATE_THRESH = 100;
 
     private PingSource snare;
@@ -24,9 +24,7 @@ public class HyperSnare {
 
     /**
      * Generates a snare sound, which is stored in the
-     * returned queue.
-     *
-     * @return a double array of samples
+     * HyperSnare's queue.
      */
     public void generateSnare() {
         while (!buffer.isEmpty()) {
@@ -49,6 +47,12 @@ public class HyperSnare {
         }
     }
 
+    /**
+     * Gets the current buffer of samples as an array
+     * of doubles.
+     *
+     * @return a double array of the samples in the buffer
+     */
     public double[] getSnare() {
         double[] samples = new double[buffer.size()];
         for (int i = 0; i < buffer.size(); i++) {

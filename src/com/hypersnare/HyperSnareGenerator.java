@@ -62,7 +62,10 @@ public class HyperSnareGenerator {
     public static HyperSnareState promptAction(Scanner input) {
         promptAction();
         String choice = input.next();
-        while (!(choice.equals("0") || choice.equals("1") || choice.equals("2") || choice.equals("3"))) {
+        while (!(choice.equals("0") ||
+                choice.equals("1") ||
+                choice.equals("2") ||
+                choice.equals("3"))) {
             promptAction();
             choice = input.next();
         }
