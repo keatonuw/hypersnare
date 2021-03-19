@@ -8,7 +8,7 @@ package com.hypersnare.dsp;
 
 public class Snare implements PingSource {
     private Source noise;
-    private Source tone;
+    private Tone tone;
     private Processor filter;
     private PingSource envelope;
 
@@ -55,9 +55,11 @@ public class Snare implements PingSource {
      * @return a double of the current sample
      */
     public double tick() {
+        double envelopeLevel = envelope.tick();
+        tone.setFrequency(tone.getFrequency() * Math.max(0.5, envelopeLevel));
         double sound = noiseVolume * noise.tick() + toneVolume * tone.tick();
         filter.process(sound);
-        sound = filter.tick() * envelope.tick();
+        sound = filter.tick() * envelopeLevel;
         return sound;
     }
 }

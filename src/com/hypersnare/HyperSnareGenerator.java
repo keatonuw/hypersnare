@@ -30,18 +30,23 @@ public class HyperSnareGenerator {
             switch (state) {
                 case RANDOMIZE:
                     System.out.println("Randomizing...");
-                    System.out.println();
                     snare.generateSnare();
+                    System.out.println("Done!");
+                    System.out.println();
                     break;
                 case LISTEN:
                     System.out.println("Playing...");
-                    System.out.println();
                     StdAudio.play(snare.getSnare());
+                    System.out.println("Done!");
+                    System.out.println();
                     break;
                 case SAVE:
+                    System.out.print("Enter a filename: ");
+                    String filename = "snares/" + input.next() + ".wav";
                     System.out.println("Saving...");
+                    StdAudio.save(filename, snare.getSnare());
+                    System.out.println("Saved!");
                     System.out.println();
-                    // TODO: Prompt user for filename, then save.
                     break;
                 case QUIT:
                     break;
@@ -81,6 +86,7 @@ public class HyperSnareGenerator {
         System.out.println("1 - Hear the current snare");
         System.out.println("2 - Save the current snare");
         System.out.println("3 - Quit");
+        System.out.print("> ");
     }
 
     /**
