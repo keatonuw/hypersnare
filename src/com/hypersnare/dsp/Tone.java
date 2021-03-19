@@ -28,13 +28,13 @@ public class Tone implements Source {
         if (time > StdAudio.SAMPLE_RATE) {
             time = 0;
         }
-        return (2 * Math.PI * frequency * time / StdAudio.SAMPLE_RATE);
+        return Math.sin(2 * Math.PI * frequency * time / ((double) StdAudio.SAMPLE_RATE));
     }
 
     /**
      * Randomizes the pitch of the tone
      */
     public void randomize() {
-        frequency = Math.random() * 22000 + 220;
+        frequency = Math.random() * 22000.0 + 220.0;
     }
 }

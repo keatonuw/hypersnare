@@ -25,7 +25,7 @@ public class Noise implements Source {
      */
     public double tick() {
         count++;
-        if (count % bitcrush == 0) {
+        if (count >= bitcrush) {
             sample = Math.random() * 2.0 - 1.0;
             count = 0;
         }
