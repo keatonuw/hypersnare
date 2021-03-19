@@ -5,14 +5,18 @@ public class BitCrusher implements Processor {
     private int sampleDivision;
     private int count;
 
+    /**
+     * Creates a default BitCrusher
+     */
     public BitCrusher() {
         sample = 0;
         sampleDivision = 1;
         count = 0;
     }
+
     /**
      * Processes the incoming signal, and
-     * returns a new value
+     * returns a new bitcrushed value
      *
      * @param in a double to process
      * @return a double of what has been processed
@@ -26,7 +30,7 @@ public class BitCrusher implements Processor {
     }
 
     /**
-     * Gets the current sample from the Source
+     * Gets the current sample from the BitCrusher
      *
      * @return a double of the sample
      */
@@ -35,7 +39,7 @@ public class BitCrusher implements Processor {
     }
 
     /**
-     * Randomizes the values of the Source
+     * Randomizes the values of the BitCrusher
      */
     public void randomize() {
         sampleDivision = (int) (Math.random() * 20.0);

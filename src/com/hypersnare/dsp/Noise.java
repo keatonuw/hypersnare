@@ -5,18 +5,14 @@ package com.hypersnare.dsp;
  */
 
 public class Noise implements Source {
-    private int bitcrush;
-    private int count;
-    private double sample;
+    private Processor bitcrush;
 
     /**
      * Constructs a new Noise object
      * with default values
      */
     public Noise() {
-        bitcrush = 1;
-        count = 0;
-        sample = 0;
+        bitcrush = new BitCrusher();
     }
 
     /**
@@ -24,18 +20,14 @@ public class Noise implements Source {
      * @return a double of the new noise value
      */
     public double tick() {
-        count++;
-        if (count >= bitcrush) {
-            sample = Math.random() * 2.0 - 1.0;
-            count = 0;
-        }
-        return sample;
+        bitcrush.process(Math.random() * 2.0 - 1.0);
+        return bitcrush.tick();
     }
 
     /**
      * Randomizes the noise
      */
     public void randomize() {
-        bitcrush = (int) (Math.random() * 10);
+        bitcrush.randomize();
     }
 }
