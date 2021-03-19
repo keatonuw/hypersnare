@@ -5,8 +5,17 @@ import com.hypersnare.dsp.Snare;
 
 import java.util.Scanner;
 
+/**
+ * The main client class for HyperSnare
+ */
+
 public class HyperSnare {
 
+    /**
+     * Prompts user interaction to generate, play, and
+     * save snares.
+     * @param args
+     */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
@@ -44,6 +53,11 @@ public class HyperSnare {
         System.exit(0);
     }
 
+    /**
+     * Prompts the user to select a state
+     * @param input the Scanner to get input from
+     * @return a new HyperSnareState, as selected
+     */
     public static HyperSnareState promptAction(Scanner input) {
         promptAction();
         String choice = input.next();
@@ -54,6 +68,9 @@ public class HyperSnare {
         return HyperSnareState.values()[(Integer.parseInt(choice))];
     }
 
+    /**
+     * Prints the action menu
+     */
     public static void promptAction() {
         System.out.println("What would you like to do? (Enter a number, 0-3)");
         System.out.println("0 - Randomize a snare");
@@ -62,6 +79,12 @@ public class HyperSnare {
         System.out.println("3 - Quit");
     }
 
+    /**
+     * Randomizes a snare sound and writes it to a buffer.
+     * @param buffer A double[] to write to
+     * @param snare A Snare object to get sound from
+     * @param flanger A Flanger object to process through
+     */
     public static void fillBuffer(double[] buffer, Snare snare, Flanger flanger) {
         snare.randomize();
         flanger.randomize();
@@ -71,6 +94,9 @@ public class HyperSnare {
         }
     }
 
+    /**
+     * A enum representation of the program state
+     */
     public enum HyperSnareState {
         RANDOMIZE,
         LISTEN,

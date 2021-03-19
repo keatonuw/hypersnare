@@ -25,7 +25,7 @@ the separate sound classes I wrote.
 Finally, the main client class allows for the user to randomize, hear, and save
 different snare sounds!
 
-### To-Do:
+### To-Do
 - Add additional audio effects (filter bank, saturator, delay)
 - Create class to manage and randomize effect chain
 - Create class to represent a "HyperSnare" (a snare and an effect chain)
