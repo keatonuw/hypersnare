@@ -8,6 +8,8 @@ import com.hypersnare.StdAudio;
  */
 
 public class PingEnv implements PingSource {
+    public static double DECAY_LENGTH = 2;
+
     private double time;
     private double decayFactor;
 
@@ -46,6 +48,6 @@ public class PingEnv implements PingSource {
      * Randomizes the decay of the envelope
      */
     public void randomize() {
-        decayFactor = 1 / (Math.random() + 0.001);
+        decayFactor = DECAY_LENGTH / (Math.random() + 0.0000001);
     }
 }

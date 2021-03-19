@@ -5,25 +5,18 @@ import com.hypersnare.StdAudio;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * The Flanger is a Processor that works as a super
- * short delay line, bringing the processing into
- * audio-rate territory, acting almost like a Karplus
- * Strong resonator
- */
-
-public class Flanger implements Processor {
+public class Delay implements Processor {
     private Queue<Double> buffer;
     private double feedback;
 
     /**
-     * Constructs a new Flanger with default
+     * Constructs a new Delay with default
      * values
      */
-    public Flanger() {
+    public Delay() {
         buffer = new LinkedList<>();
         feedback = 0.5;
-        int bufferSize = (int) (Math.round(StdAudio.SAMPLE_RATE / 440));
+        int bufferSize = StdAudio.SAMPLE_RATE;
         for (int i = 0; i < bufferSize; i++) {
             buffer.add(0.0);
         }
@@ -31,7 +24,7 @@ public class Flanger implements Processor {
 
     /**
      * Processes the given sample through the
-     * flanger
+     * delay
      * @param in a double to process
      * @return a double of the newly process sound
      */
@@ -50,11 +43,11 @@ public class Flanger implements Processor {
     }
 
     /**
-     * Randomizes the settings of the flanger
+     * Randomizes the settings of the delay
      */
     public void randomize() {
-        feedback = Math.random() * 0.9;
-        int newSize = 1 + (int) (Math.random() * Math.round(StdAudio.SAMPLE_RATE / 440));
+        feedback = Math.random() * 0.5;
+        int newSize = 1 + (int) (Math.random() * (StdAudio.SAMPLE_RATE / 2));
         while (buffer.size() != newSize) {
             if (buffer.size() > newSize) {
                 buffer.remove();
